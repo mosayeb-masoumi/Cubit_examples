@@ -20,7 +20,11 @@ class MultiProviderPage extends StatelessWidget {
             BlocProvider(create: (context) => NumberCubit()),
             //second provider
             BlocProvider(create: (context) => TextCubit(),),
+
+
           ],
+
+
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +41,7 @@ class MultiProviderPage extends StatelessWidget {
                     children: [
                       Text(state.digit.toString() , style: TextStyle(fontSize: 30),),
                       ElevatedButton(onPressed: (){
-                      context.read<NumberCubit>().increseNumber(5);
+                      context.read<NumberCubit>().increseNumber(5);   // to change a widget from another cubit ------------------ so important
                       }, child: Text("increase 5"))
                     ],
                   );
@@ -57,6 +61,9 @@ class MultiProviderPage extends StatelessWidget {
                       Text(state.name , style: TextStyle(fontSize: 30),),
                       ElevatedButton(onPressed: (){
                         context.read<TextCubit>().changedName("ali");
+
+                        context.read<NumberCubit>().increseNumber(10);
+
                       }, child: Text("new Name"))
                     ],
                   );

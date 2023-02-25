@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: CounterExample(),
-      // home: MultiProviderPage(),
-      home: DataServerPage(),
+      home: MultiProviderPage(),
+      // home: DataServerPage(),
       // home: ButtonLoadingExample(),
     );
   }
