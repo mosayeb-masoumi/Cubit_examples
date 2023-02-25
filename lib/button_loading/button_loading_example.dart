@@ -1,5 +1,6 @@
 import 'package:cubit_test/button_loading/button_loading_cubit.dart';
 import 'package:cubit_test/get_data_from_server/data_repository.dart';
+import 'package:cubit_test/locator.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,8 @@ class ButtonLoadingExample extends StatelessWidget {
         height: size.height,
         child: Center(
           child: BlocProvider(
-              create: (context) => ButtonLoadingCubit(DataRepository()),
+              // create: (context) => ButtonLoadingCubit(DataRepository()),
+              create: (context) => ButtonLoadingCubit(locator<DataRepository>()),
               child: BlocConsumer<ButtonLoadingCubit , ButtonLoadingState>(
                 listener: (context , state){
                   if(state is ButtonLoadingError){

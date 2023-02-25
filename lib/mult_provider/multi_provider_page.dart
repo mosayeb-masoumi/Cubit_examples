@@ -49,7 +49,6 @@ class MultiProviderPage extends StatelessWidget {
 
               BlocConsumer<TextCubit , TextState>(
                 listener: (context , state){
-
                 },
 
                 builder: (context ,state){

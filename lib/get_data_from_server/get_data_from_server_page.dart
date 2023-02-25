@@ -1,7 +1,11 @@
 import 'package:cubit_test/get_data_from_server/data_cubit.dart';
 import 'package:cubit_test/get_data_from_server/data_repository.dart';
+import 'package:cubit_test/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:get_it/get_it.dart';
+
 class DataServerPage extends StatelessWidget {
   const DataServerPage({Key? key}) : super(key: key);
 
@@ -14,7 +18,8 @@ class DataServerPage extends StatelessWidget {
         height: size.height,
 
         child: BlocProvider(
-          create: (context) => DataCubit(DataRepository()),
+          // create: (context) => DataCubit(DataRepository()),
+          create: (context) => DataCubit(locator<DataRepository>()),
           child: BlocConsumer<DataCubit, DataState>(
             listener: (context, state) {
 

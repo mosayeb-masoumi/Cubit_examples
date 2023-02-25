@@ -2,10 +2,12 @@
 import 'package:cubit_test/button_loading/button_loading_example.dart';
 import 'package:cubit_test/counter/counter_example.dart';
 import 'package:cubit_test/get_data_from_server/get_data_from_server_page.dart';
+import 'package:cubit_test/locator.dart';
 import 'package:cubit_test/mult_provider/multi_provider_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setUp();
   runApp(const MyApp());
 }
 
@@ -23,8 +25,8 @@ class MyApp extends StatelessWidget {
       ),
       // home: CounterExample(),
       // home: MultiProviderPage(),
-      // home: DataServerPage(),
-      home: ButtonLoadingExample(),
+      home: DataServerPage(),
+      // home: ButtonLoadingExample(),
     );
   }
 }
