@@ -5,6 +5,7 @@ import 'package:cubit_test/counter/counter_example.dart';
 import 'package:cubit_test/get_data_from_server/get_data_from_server_page.dart';
 import 'package:cubit_test/locator.dart';
 import 'package:cubit_test/mult_provider/multi_provider_page.dart';
+import 'package:cubit_test/stream_subscription/stream_subscription_example.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       // home: MultiProviderPage(),
       // home: DataServerPage(),
       // home: ButtonLoadingExample(),
-      home: AllInOnePage(),
+      // home: AllInOnePage(),
+      home: StreamSubscriptionPage(),
     );
   }
 }
