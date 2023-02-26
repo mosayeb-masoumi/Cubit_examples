@@ -1,4 +1,5 @@
 
+import 'package:cubit_test/all_in_one/all_in_one.dart';
 import 'package:cubit_test/button_loading/button_loading_example.dart';
 import 'package:cubit_test/counter/counter_example.dart';
 import 'package:cubit_test/get_data_from_server/get_data_from_server_page.dart';
@@ -24,9 +25,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: CounterExample(),
-      home: MultiProviderPage(),
+      // home: MultiProviderPage(),
       // home: DataServerPage(),
       // home: ButtonLoadingExample(),
+      home: AllInOnePage(),
     );
   }
 }
