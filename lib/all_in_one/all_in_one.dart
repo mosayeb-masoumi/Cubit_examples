@@ -2,12 +2,14 @@
 import 'package:cubit_test/all_in_one/counter_new_bloc/counter_new_cubit.dart';
 import 'package:cubit_test/all_in_one/model/user_model.dart';
 import 'package:cubit_test/all_in_one/server_bloc/server_cubit.dart';
+import 'package:cubit_test/all_in_one/widgets/bottomsheet_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:cubit_test/locator.dart';
 
-class AllInOnePage extends StatelessWidget {const AllInOnePage({Key? key}) : super(key: key);
+class AllInOnePage extends StatelessWidget {
+  const AllInOnePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,15 @@ class IallInOnePage extends StatelessWidget  {
 
   List<UserModel> globalUserList = [];
 
+
+
+  void bottomSheetCallBack(int id , BuildContext blocContext){
+    blocContext.read<ServerCubit>().toggleDataSelected(globalUserList, 0);
+    // final cubit = BlocProvider.of<ServerCubit>(blocContext);
+    // cubit.toggleDataSelected(globalUserList, 0);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -44,16 +55,9 @@ class IallInOnePage extends StatelessWidget  {
 
            BlocConsumer<ServerCubit , ServerState>(
                listener: (context , state){
-                 // if(state is ServerLoading){
-                 //   var a = 5;
-                 // }else if(state is ServerLoaded){
-                 //   var a = 5;
-                 // }
-
                  if(state is ServerListLoaded){
                    globalUserList = state.list;
                  }
-
                },
                builder: (context , state){
 
@@ -99,6 +103,20 @@ class IallInOnePage extends StatelessWidget  {
            ElevatedButton(onPressed: (){
              context.read<ServerCubit>().changeNameSecondItem(globalUserList, 1);
            }, child: Text("change second item")),
+
+
+           ElevatedButton(onPressed: (){
+
+
+             showModalBottomSheet(
+                 context: context,
+                 builder: (builder){
+                   return MyBottomSheet(bottomSheetCallBack:bottomSheetCallBack , blocContext:context);
+                 }
+             );
+
+           }, child: Text("open bottomSheet")),
+
 
 
          ],

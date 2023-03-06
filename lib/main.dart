@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
       // home: MultiProviderPage(),
       // home: DataServerPage(),
       // home: ButtonLoadingExample(),
-      // home: AllInOnePage(),
-      home: StreamSubscriptionPage(),
+      home: AllInOnePage(),
+      // home: StreamSubscriptionPage(),
     );
   }
 }
