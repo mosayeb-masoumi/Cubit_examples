@@ -3,6 +3,7 @@ import 'package:cubit_test/all_in_one/counter_new_bloc/counter_new_cubit.dart';
 import 'package:cubit_test/all_in_one/model/user_model.dart';
 import 'package:cubit_test/all_in_one/server_bloc/server_cubit.dart';
 import 'package:cubit_test/all_in_one/widgets/bottomsheet_test.dart';
+import 'package:cubit_test/counter/counter_example.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -115,6 +116,11 @@ class IallInOnePage extends StatelessWidget  {
                  }
              );
 
+           }, child: Text("open bottomSheet")),
+
+
+           ElevatedButton(onPressed: (){
+             Navigator.of(context).push(MaterialPageRoute(builder: (context) => CounterExample()));
            }, child: Text("open bottomSheet")),
 
 
