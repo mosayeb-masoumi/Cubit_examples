@@ -21,72 +21,102 @@ class _StreamSubscriptionPageState extends State<StreamSubscriptionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => StreamSubscriptionCubit()),
+    // return BlocProvider<StreamSubscriptionCubit>(
+    //     create: (context) => StreamSubscriptionCubit(locator()),
+    //     child: StreamSubscriptionPage(),);
 
-      ],
-      child: IstreamSubscriptionPage (),
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => StreamSubscriptionCubit(locator())),
+        ], child: IStreamSubscriptionPage());
+  }
+
+
+}
+
+
+class IStreamSubscriptionPage extends StatefulWidget {
+  const IStreamSubscriptionPage({Key? key}) : super(key: key);
+
+  @override
+  State<IStreamSubscriptionPage> createState() =>
+      _IStreamSubscriptionPageState();
+}
+
+class _IStreamSubscriptionPageState extends State<IStreamSubscriptionPage> {
+
+  late final StreamSubscriptionCubit bloc;
+
+  late final StreamSubscription subscription;
+
+  bool showLoading = false;
+  bool showData = false;
+  bool showError = false;
+  String result = "";
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = BlocProvider.of<StreamSubscriptionCubit>(context);
+    subscriptionListener();
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+  void subscriptionListener() {
+    subscription = bloc.stream.listen((state) {
+      if (state is StreamSubscriptionLoading) {
+        setState(() {
+          showLoading = true;
+        });
+      } else if (state is StreamSubscriptionError) {
+        setState(() {
+          showError = true;
+          showLoading = false;
+        });
+      } else if (state is StreamSubscriptionLoaded) {
+        setState(() {
+          showLoading = false;
+          showData = true;
+          result = state.result;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          children: [
+
+            const SizedBox(height: 50,),
+            ElevatedButton(onPressed: () {
+              bloc.getDataStream();
+            }, child: const Text("get data")),
+
+            const SizedBox(height: 20,),
+
+            if(showLoading == true)
+             const Center(child: CircularProgressIndicator(),),
+            if(showError)
+              const Text("Error"),
+            if(showData)
+              Text(result)
+
+          ],
+        ),
+      ),
     );
   }
 }
 
 
 
-
-class IstreamSubscriptionPage extends StatefulWidget {
-  const IstreamSubscriptionPage({Key? key}) : super(key: key);
-
-  @override
-  State<IstreamSubscriptionPage> createState() => _IstreamSubscriptionPageState();
-}
-
-class _IstreamSubscriptionPageState extends State<IstreamSubscriptionPage> {
-
-  int digit = 0;
-
-  late StreamSubscription<int> _streamSubscription;
-
-  @override
-  void initState() {
-    super.initState();
-
-    initStream();
-
-  }
-
-  void initStream() {
-    _streamSubscription = context.read<StreamSubscriptionCubit>().myStream.listen((data) {
-      // Do something with the data
-      setState(() {
-        digit = data;
-        var d= 5;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        width: size.width,
-        height: size.height,
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(onPressed: (){
-              context.read<StreamSubscriptionCubit>().addDataToStream(digit);
-            }, child: Text("Add digit")),
-            Center(child: Text(digit.toString()),),
-          ],
-        ),
-      ),
-    ) ;
-  }
-
-
-}
 

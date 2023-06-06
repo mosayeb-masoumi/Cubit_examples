@@ -1,20 +1,31 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cubit_test/stream_subscription/stream_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'stream_subscription_state.dart';
 
 class StreamSubscriptionCubit extends Cubit<StreamSubscriptionState> {
-  StreamSubscriptionCubit() : super(StreamSubscriptionInitial());
+
+  final StreamRepository _repository ;
+  StreamSubscriptionCubit(this._repository) : super(StreamSubscriptionInitial());
 
 
   StreamController<int> _myStreamController = StreamController<int>();
   Stream<int> get myStream => _myStreamController.stream;
 
-  void addDataToStream(int data) {
-    final newDigit = data+5;
-    _myStreamController.add(newDigit);
+  Future<dynamic> getDataStream() async {
+
+    try{
+      emit(const StreamSubscriptionLoading());
+      var result = await _repository.getData();
+      emit(StreamSubscriptionLoaded(result));
+    }catch(error){
+      emit(StreamSubscriptionError(error.toString()));
+    }
+    // final newDigit = data+5;
+    // _myStreamController.add(newDigit);
   }
 
 
